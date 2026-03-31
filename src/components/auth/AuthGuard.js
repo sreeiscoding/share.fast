@@ -21,7 +21,7 @@ export function AuthGuard({ children }) {
       return;
     }
 
-    if (inviteStatus === "denied" && !kickedRef.current) {
+    if (inviteStatus !== "allowed" && inviteStatus !== "unknown" && !kickedRef.current) {
       kickedRef.current = true;
       (async () => {
         try {
@@ -49,7 +49,7 @@ export function AuthGuard({ children }) {
   }
 
   if (!user) return null;
-  if (inviteStatus === "denied") return null;
+  if (inviteStatus !== "allowed") return null;
 
   return children;
 }
